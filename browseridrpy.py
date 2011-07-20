@@ -114,3 +114,39 @@ def include_script():
   """Returns the HTML to include the BrowserID verify.js script"""
   return '<script type="text/javascript" ' \
     'src="https://browserid.org/include.js"></script>'
+
+def include_login_callback(onsuccess='loginSuccess(assertion)',
+    onfailure='loginFailure()'):
+  """Returns the HTML to handle a click on the Sign In button returned by
+  include_signin_button(). The JavaScript code in `onsuccess` is executed if
+  the login succeeds, and `onfailure` is called if the login fails."""
+  return """\
+<script type="text/javascript">
+function handleLogin()
+{
+  navigator.id.getVerifiedEmail(function(assertion) {
+    if (assertion)
+    {
+      %s
+    }
+    else
+    {
+      %s
+    }
+  });
+}
+</script>""" % (onsuccess, onfailure)
+
+def include_javascript():
+  """Returns all the JavaScript necessary to handle BrowserID logins. Assumes
+  you have already defined the JavaScript functions loginSuccess(assertion) and
+  loginFailure()"""
+  return '%s\n%s' % (include_script(), include_login_callback())
+
+def include_signin_button(src, code='handleLogin()'):
+  """Returns the HTML necessary to show a sign-in button using the image source
+  URL in `src`. The JavaScript in `code` is called when the user clicks it."""
+  return """\
+<a href="javascript:void()" onclick="%s">
+  <img src="%s" />
+</a>""" % (src, code)
