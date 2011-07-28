@@ -1,6 +1,5 @@
-#!/usr/bin/env python
-
 # BrowserID Relying Party Library
+# Flask shortcuts test
 #
 # Copyright (c) 2011 Zach "theY4Kman" Kanzler <they4kman@gmail.com>
 #
@@ -17,17 +16,28 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from distutils.core import setup
+import os
+import os.path
 
-setup(
-  name='BrowserID-RPy',
-  version='1.0',
-  description='BrowserID Relying Party Library',
-  author='Zach Kanzler',
-  author_email='they4kman@gmail.com',
-  url='https://github.com/theY4Kman/browserid-rpy',
-  package_dir={
-    'browseridrpy': 'brwoseridrpy',
-    'browseridrpy.flask_shortcuts': 'browseridrpy/flask_shortcuts'
-  }
-)
+from browseridrpy.flask_shortcuts import BrowserIDRPyFlask
+import flask
+from flask import Flask, request, redirect, url_for, session, render_template
+
+app = Flask('browseridrpy-flask-test')
+
+if not os.path.exists('secret_key'):
+  with open('secret_key', 'w') as fp:
+    app.secret_key = os.urandom(36)
+    fp.write(app.secret_key)
+else:
+  with open('secret_key', 'r') as fp:
+    app.secret_key = fp.read()
+
+@app.route('/')
+def index():
+  return render_template('index.htm')
+
+bid = BrowserIDRPyFlask(app, login_redirect='/')
+app.debug = True
+app.run()
+

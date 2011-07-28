@@ -57,7 +57,7 @@ class Assertion:
     
     if self.status == 'okay':
       self.email = self.response['email']
-      self._valid_until = int(float(self.response['valid-until'])/10.0)
+      self._valid_until = self.response['valid-until'] / 100
       self.valid_until = datetime.fromtimestamp(self._valid_until)
       self.issuer = self.response['issuer']
       
@@ -149,4 +149,4 @@ def include_signin_button(src, code='handleLogin()'):
   return """\
 <a href="javascript:void()" onclick="%s">
   <img src="%s" />
-</a>""" % (src, code)
+</a>""" % (code, src)
