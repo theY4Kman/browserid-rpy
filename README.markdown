@@ -58,8 +58,8 @@ Then, in your template, use these simple functions to add the JavaScript to hand
 
 That's it! Flask shortcuts uses sessions, so before you can use it, you'll need to define a `secret_key` in your app. See [the Flask docs](http://flask.pocoo.org/docs/quickstart/#sessions) on how to generate a good secret key and assign it. When the user signs in, two entries are added to the session dictionary:
 
-    * `logged_in`: a boolean value; True if the user was verified, False if they're not.
-    * `assertion`: a `browseridrpy.Assertion` object. It has three useful attributes:
-        * `email`: the email address of the user
-        * `pubkeys`: the public keys of the user
-        * `valid_until`: a `datetime` object representing the time when the assertion expired. This is not really useful, but fun debug information.
+* `logged_in`: a boolean value; True if the user was verified, False if they're not.
+* `assertion`: a `browseridrpy.Assertion` object. It has three useful attributes:
+  * `email`: the email address of the user
+  * `pubkeys`: the public keys of the user
+  * `valid_until`: a `datetime` object representing the time when the assertion expired. This is not really useful, but fun debug information.
