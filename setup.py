@@ -27,7 +27,7 @@ setup(
   author_email='they4kman@gmail.com',
   url='https://github.com/theY4Kman/browserid-rpy',
   package_dir={
-    'browseridrpy': 'brwoseridrpy',
+    'browseridrpy': 'browseridrpy',
     'browseridrpy.flask_shortcuts': 'browseridrpy/flask_shortcuts'
   }
 )
